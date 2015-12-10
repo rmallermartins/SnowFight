@@ -10,16 +10,21 @@ namespace SnowFight
 {
     public class Player : IPlayer
     {
+        public Texture2D Texture { get; set; }
         public IAnimation Animation { get; set; }
+        public ISprite Sprite { get; set; }
 
         public Player()
         {
-            Animation = new Animation("run_cycle");
+            Animation = new Animation();
+            Sprite = new Sprite();
         }
 
         public void LoadContent(ContentManager content)
         {
-            Animation.LoadContent(content);
+            Texture = content.Load<Texture2D>("run_cycle");
+
+            Animation.CurrRect = new Rectangle(Animation.CurrIndex * 128, 0, 128, 128);
         }
 
         public void Update()
@@ -29,7 +34,9 @@ namespace SnowFight
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Animation.Draw(spriteBatch);
+            spriteBatch.Draw(Texture, Sprite.Position, Animation.CurrRect, 
+                Sprite.DrawColor, Sprite.Rotation, Sprite.Origin, Sprite.Scale, 
+                Sprite.Flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     }
 }

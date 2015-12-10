@@ -10,12 +10,7 @@ namespace SnowFight
 {
     public interface IAnimation
     {
-        bool Flip { get; set; }
-        Vector2 Origin { get; set; }
-        Color DrawColor { get; set; }
-        Vector2 Position { get; set; }
-
-        void LoadContent(ContentManager content);
-        void Draw(SpriteBatch spriteBatch);
+        int CurrIndex { get; set; }
+        Rectangle CurrRect { get; set; }
     }
 }

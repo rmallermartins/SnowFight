@@ -11,6 +11,8 @@ namespace SnowFight
     public interface IPlayer
     {
         IAnimation Animation { get; set; }
+        ISprite Sprite { get; set; }
+        Texture2D Texture { get; set; }
 
         void LoadContent(ContentManager content);
         void Update();

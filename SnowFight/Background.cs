@@ -11,21 +11,26 @@ namespace SnowFight
     public class Background : IBackground
     {
         private readonly string _textureName;
-        private Texture2D _texture;
+
+        public Texture2D Texture { get; set; }
+        public ISprite Sprite { get; set; }
 
         public Background(string textureName)
         {
             _textureName = textureName;
+            Sprite = new Sprite();
         }
 
         public void LoadContent(ContentManager content)
         {
-            _texture = content.Load<Texture2D>(_textureName);
+            Texture = content.Load<Texture2D>(_textureName);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(Texture, Sprite.Position, null, Sprite.DrawColor, 
+                Sprite.Rotation, Sprite.Origin, Sprite.Scale, 
+                Sprite.Flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     }
 }
