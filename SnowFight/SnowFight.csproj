@@ -58,6 +58,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="IBackground.cs" />
+    <Compile Include="IInput.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Player.cs" />
