@@ -99,7 +99,7 @@ namespace SnowFight
             _player1.LoadContent(Content);
             _player1.Sprite.Origin = new Vector2(64, 64);
             _player1.Sprite.Position = new Vector2(200, 500);
-            _player1.MovSpeed = 100;
+            _player1.MovSpeed = 200;
             _player1.LeftMovKey = Keys.A;
             _player1.RightMovKey = Keys.D;
         }
@@ -111,7 +111,7 @@ namespace SnowFight
             _player2.Sprite.Origin = new Vector2(64, 64);
             _player2.Sprite.DrawColor = Color.Red;
             _player2.Sprite.Position = new Vector2(1080, 500);
-            _player2.MovSpeed = 100;
+            _player2.MovSpeed = 200;
             _player2.LeftMovKey = Keys.J;
             _player2.RightMovKey = Keys.L;
         }
