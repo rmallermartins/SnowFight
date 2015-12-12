@@ -14,5 +14,6 @@ namespace SnowFight
 
         void Update(GameTime gameTime);
         bool Press(Keys key);
+        bool Pressed(Keys key);
     }
 }

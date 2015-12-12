@@ -22,5 +22,10 @@ namespace SnowFight
         {
             return ActualState.IsKeyDown(key);
         }
+
+        public bool Pressed(Keys key)
+        {
+            return LastState.IsKeyUp(key) && ActualState.IsKeyDown(key);
+        }
     }
 }

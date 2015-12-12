@@ -9,8 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SnowFight
 {
-    public class Player : IPlayer
+    public class Player
     {
+        private SnowBall snowBall;
+
         public Texture2D Texture { get; set; }
         public IAnimation Animation { get; set; }
         public ISprite Sprite { get; set; }
@@ -18,17 +20,20 @@ namespace SnowFight
         public float MovSpeed { get; set; } = 1;
         public Keys LeftMovKey { get; set; }
         public Keys RightMovKey { get; set; }
+        public Keys ThrowSnowballKey { get; set; }
+        public ContentManager Content { get; set; }
 
         public Player()
         {
             Animation = new Animation();
             Sprite = new Sprite();
             Input = new Input();
+            snowBall = new SnowBall();
         }
 
-        public void LoadContent(ContentManager content)
+        public void LoadContent()
         {
-            Texture = content.Load<Texture2D>("run_cycle");
+            Texture = Content.Load<Texture2D>("run_cycle");
 
             Animation.CurrRect = new Rectangle(Animation.CurrIndex * 128, 0, 128, 128);
         }
@@ -36,11 +41,29 @@ namespace SnowFight
         public void Update(GameTime gameTime)
         {
             Input.Update(gameTime);
-
-            handleInput(gameTime);
+            handleMovementInput(gameTime);
+            handleThrowInput();
+            snowBall.Update(gameTime);
         }
 
-        private void handleInput(GameTime gameTime)
+        private void handleThrowInput()
+        {
+            if (Input.Pressed(ThrowSnowballKey) && !snowBall.IsActive)
+            {
+                throwBall();
+            }
+        }
+
+        private void throwBall()
+        {
+            snowBall = new SnowBall();
+            snowBall.ThrowForce = 1000;
+            snowBall.Sprite.Position = new Vector2(Sprite.Position.X, Sprite.Position.Y - 10);
+            snowBall.Gravity = 12;
+            snowBall.LoadContent(Content);
+        }
+
+        private void handleMovementInput(GameTime gameTime)
         {
             var movement = MovSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -56,18 +79,12 @@ namespace SnowFight
 
         private void moveLeft(float movement)
         {
-            if (!Sprite.Flip)
-                Sprite.Flip = true;
-
             if (Sprite.Position.X - movement - Sprite.Origin.X > 0)
                 Sprite.Position -= new Vector2(movement, 0);
         }
 
         private void moveRight(float movement)
         {
-            if (Sprite.Flip)
-                Sprite.Flip = false;
-
             if (Sprite.Position.X + movement + Sprite.Origin.X < 1280)
                 Sprite.Position += new Vector2(movement, 0);
         }
@@ -77,6 +94,8 @@ namespace SnowFight
             spriteBatch.Draw(Texture, Sprite.Position, Animation.CurrRect, 
                 Sprite.DrawColor, Sprite.Rotation, Sprite.Origin, Sprite.Scale, 
                 Sprite.Flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+
+            snowBall.Draw(spriteBatch);
         }
     }
 }

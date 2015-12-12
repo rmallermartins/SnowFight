@@ -16,8 +16,8 @@ namespace SnowFight
         private IBackground _sledge;
         private IBackground _snowman;
 
-        private IPlayer _player1;
-        private IPlayer _player2;
+        private Player _player1;
+        private Player _player2;
 
         public Game1()
         {
@@ -96,24 +96,28 @@ namespace SnowFight
 
         private void initPlayer1()
         {
-            _player1.LoadContent(Content);
+            _player1.Content = Content;
+            _player1.LoadContent();
             _player1.Sprite.Origin = new Vector2(64, 64);
             _player1.Sprite.Position = new Vector2(200, 500);
-            _player1.MovSpeed = 200;
+            _player1.MovSpeed = 250;
             _player1.LeftMovKey = Keys.A;
             _player1.RightMovKey = Keys.D;
+            _player1.ThrowSnowballKey = Keys.W;
         }
 
         private void initPlayer2()
         {
-            _player2.LoadContent(Content);
+            _player2.Content = Content;
+            _player2.LoadContent();
             _player2.Sprite.Flip = true;
             _player2.Sprite.Origin = new Vector2(64, 64);
             _player2.Sprite.DrawColor = Color.Red;
             _player2.Sprite.Position = new Vector2(1080, 500);
-            _player2.MovSpeed = 200;
+            _player2.MovSpeed = 250;
             _player2.LeftMovKey = Keys.J;
             _player2.RightMovKey = Keys.L;
+            _player2.ThrowSnowballKey = Keys.I;
         }
 
         protected override void UnloadContent()
