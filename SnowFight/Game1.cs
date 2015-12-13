@@ -104,6 +104,7 @@ namespace SnowFight
             _player1.RightMovKey = Keys.D;
             _player1.ThrowSnowballKey = Keys.W;
             _player1.ThrowDir = 1;
+            _player1.FontPosition = new Vector2(100, 50);
         }
 
         private void initPlayer2()
@@ -118,6 +119,7 @@ namespace SnowFight
             _player2.RightMovKey = Keys.L;
             _player2.ThrowSnowballKey = Keys.I;
             _player2.ThrowDir = -1;
+            _player2.FontPosition = new Vector2(1080, 50);
         }
 
         protected override void UnloadContent()
@@ -134,11 +136,15 @@ namespace SnowFight
 
             if (_player1.Hits(_player2))
             {
+                _player1.Score++;
+                _player1.SnowBall.Inactivate();
                 _player2.Freeze();
             }
 
             if (_player2.Hits(_player1))
             {
+                _player2.Score++;
+                _player2.SnowBall.Inactivate();
                 _player1.Freeze();
             }
 

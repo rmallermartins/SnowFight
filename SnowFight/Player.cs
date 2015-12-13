@@ -15,6 +15,7 @@ namespace SnowFight
         private float freezeTime;
         private Rectangle collisionMask;
         private float slide;
+        private SpriteFont font;
 
         public Texture2D Texture { get; set; }
         public IAnimation Animation { get; set; }
@@ -27,6 +28,8 @@ namespace SnowFight
         public int ThrowDir { get; set; }
         public Rectangle CollisionMask { get { return collisionMask; } }
         public SnowBall SnowBall { get { return snowBall; } }
+        public Vector2 FontPosition { get; set; }
+        public int Score { get; set; } = 0;
 
         public Player()
         {
@@ -40,6 +43,7 @@ namespace SnowFight
         {
             Texture = content.Load<Texture2D>("run_cycle");
             Animation.CurrRect = new Rectangle(Animation.CurrIndex * 128, 0, 128, 128);
+            font = content.Load<SpriteFont>("Arial");
 
             snowBall = new SnowBall();
             snowBall.LoadContent(content);
@@ -61,19 +65,23 @@ namespace SnowFight
             if (slide > 0 && Sprite.Position.X + slide + Sprite.Origin.X < 1280)
             {
                 Sprite.Position += new Vector2(slide, 0);
-                slide = Math.Max(slide - 5 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
+                slide = Math.Max(slide - 2 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
             }
 
             if (slide < 0 && Sprite.Position.X - slide - Sprite.Origin.X > 0)
             {
                 Sprite.Position += new Vector2(slide, 0);
-                slide = Math.Min(slide + 5 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
+                slide = Math.Min(slide + 2 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
             }
 
             if (freezeTime > 0)
             {
-                MovSpeed = 150;
+                MovSpeed = 125;
                 freezeTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                MovSpeed = 250;
             }
         }
 
@@ -153,6 +161,8 @@ namespace SnowFight
                     Sprite.DrawColor, Sprite.Rotation, Sprite.Origin, Sprite.Scale, 
                     Sprite.Flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
+
+            spriteBatch.DrawString(font, "Score: " + Score, FontPosition, Color.Black);
 
             snowBall.Draw(spriteBatch);
         }

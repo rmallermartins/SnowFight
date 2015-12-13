@@ -53,10 +53,15 @@ namespace SnowFight
 
                 if (Sprite.Position.Y >= 532)
                 {
-                    IsActive = false;
-                    Sprite.Position = new Vector2(0, 0);
+                    Inactivate();
                 }
             }
+        }
+
+        public void Inactivate()
+        {
+            IsActive = false;
+            Sprite.Position = new Vector2(0, 0);
         }
 
         public void Draw(SpriteBatch spriteBatch)
