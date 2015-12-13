@@ -14,6 +14,7 @@ namespace SnowFight
         Vector2 Origin { get; set; }
         Vector2 Position { get; set; }
         Color DrawColor { get; set; }
+        Color FreezedDrawColor { get; set; }
         float Rotation { get; set; }
         float Scale { get; set; }
     }

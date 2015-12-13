@@ -14,6 +14,7 @@ namespace SnowFight
         public Vector2 Origin { get; set; } = new Vector2(0, 0);
         public Vector2 Position { get; set; } = new Vector2(0, 0);
         public Color DrawColor { get; set; } = Color.White;
+        public Color FreezedDrawColor { get; set; } = Color.Blue;
         public float Rotation { get; set; } = 0;
         public float Scale { get; set; } = 1;
     }

@@ -11,12 +11,14 @@ namespace SnowFight
     public class SnowBall
     {
         private Vector2 movement;
+        private Rectangle collisionMask;
 
         public Texture2D Texture { get; set; }
         public ISprite Sprite { get; set; }
         public float ThrowForce { get; set; }
         public float Gravity { get; set; }
         public bool IsActive { get; set; }
+        public Rectangle CollisionMask { get { return collisionMask; } }
 
         public SnowBall()
         {
@@ -27,13 +29,23 @@ namespace SnowFight
         public void LoadContent(ContentManager content)
         {
             Texture = content.Load<Texture2D>("snowball");
+
+            collisionMask = new Rectangle((int)Sprite.Position.X - Texture.Width/2, 
+                (int)Sprite.Position.Y - Texture.Height/2, Texture.Width, Texture.Height);
+        }
+
+        public void Throw()
+        {
             IsActive = true;
             movement.X = ThrowForce / 2;
-            movement.Y = -ThrowForce / 2;
+            movement.Y = - Math.Abs(ThrowForce) / 2;
         }
 
         public void Update(GameTime gameTime)
         {
+            collisionMask.X = (int)Sprite.Position.X - Texture.Width / 2;
+            collisionMask.Y = (int)Sprite.Position.Y - Texture.Height / 2;
+
             if (IsActive)
             {
                 movement.Y += Gravity;
@@ -42,6 +54,7 @@ namespace SnowFight
                 if (Sprite.Position.Y >= 532)
                 {
                     IsActive = false;
+                    Sprite.Position = new Vector2(0, 0);
                 }
             }
         }

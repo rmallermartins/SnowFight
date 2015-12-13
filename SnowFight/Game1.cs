@@ -96,20 +96,19 @@ namespace SnowFight
 
         private void initPlayer1()
         {
-            _player1.Content = Content;
-            _player1.LoadContent();
+            _player1.LoadContent(Content);
             _player1.Sprite.Origin = new Vector2(64, 64);
             _player1.Sprite.Position = new Vector2(200, 500);
             _player1.MovSpeed = 250;
             _player1.LeftMovKey = Keys.A;
             _player1.RightMovKey = Keys.D;
             _player1.ThrowSnowballKey = Keys.W;
+            _player1.ThrowDir = 1;
         }
 
         private void initPlayer2()
         {
-            _player2.Content = Content;
-            _player2.LoadContent();
+            _player2.LoadContent(Content);
             _player2.Sprite.Flip = true;
             _player2.Sprite.Origin = new Vector2(64, 64);
             _player2.Sprite.DrawColor = Color.Red;
@@ -118,6 +117,7 @@ namespace SnowFight
             _player2.LeftMovKey = Keys.J;
             _player2.RightMovKey = Keys.L;
             _player2.ThrowSnowballKey = Keys.I;
+            _player2.ThrowDir = -1;
         }
 
         protected override void UnloadContent()
@@ -131,6 +131,16 @@ namespace SnowFight
 
             _player1.Update(gameTime);
             _player2.Update(gameTime);
+
+            if (_player1.Hits(_player2))
+            {
+                _player2.Freeze();
+            }
+
+            if (_player2.Hits(_player1))
+            {
+                _player1.Freeze();
+            }
 
             base.Update(gameTime);
         }
