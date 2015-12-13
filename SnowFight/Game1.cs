@@ -19,6 +19,8 @@ namespace SnowFight
         private Player _player1;
         private Player _player2;
 
+        private SnowSystem _snowSystem;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this)
@@ -42,6 +44,8 @@ namespace SnowFight
             _player1 = new Player();
             _player2 = new Player();
 
+            _snowSystem = new SnowSystem();
+
             base.Initialize();
         }
 
@@ -59,6 +63,7 @@ namespace SnowFight
             initSnowman();
             initPlayer1();
             initPlayer2();
+            _snowSystem.LoadContent(Content);
         }
 
         private void initSnowPileLeft()
@@ -133,6 +138,7 @@ namespace SnowFight
 
             _player1.Update(gameTime);
             _player2.Update(gameTime);
+            _snowSystem.Update(gameTime);
 
             if (_player1.Hits(_player2))
             {
@@ -162,6 +168,8 @@ namespace SnowFight
             _snowballPileRight.Draw(_spriteBatch);
             _sledge.Draw(_spriteBatch);
             _snowman.Draw(_spriteBatch);
+
+            _snowSystem.Draw(_spriteBatch);
 
             _player1.Draw(_spriteBatch);
             _player2.Draw(_spriteBatch);

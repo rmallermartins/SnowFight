@@ -65,6 +65,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SnowBall.cs" />
+    <Compile Include="SnowFlake.cs" />
+    <Compile Include="SnowSystem.cs" />
     <Compile Include="Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
